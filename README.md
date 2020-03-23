@@ -47,7 +47,7 @@ list hidden dirs
 ```
 
 * To only list hidden files
-``bash
+```bash
 
 list hidden files
 ```
