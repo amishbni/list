@@ -4,15 +4,15 @@ c='--color=always'
 gdf='--group-directories-first'
 
 case $1 in
-	'dirs')
+	'dirs'|'d')
 		list='ls $c -dlth */';;
-	'files')
+	'files'|'f')
 		list='ls $c -plL | grep -v /';;
-	'hidden')
+	'hidden'|'h')
 		case $2 in
-			'dirs')
+			'dirs'|'d')
 				list='ls $c -dlth .??*/';;
-			'files')
+			'files'|'f')
 				list='ls $c -dplL .??* | grep -v /';;
 			*)
 				list='ls $c -dl $gdf .??*';;
