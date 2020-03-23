@@ -1,0 +1,24 @@
+#!/bin/bash
+
+c='--color=always'
+gdf='--group-directories-first'
+
+case $1 in
+	'dirs')
+		list='ls $c -dlth */';;
+	'files')
+		list='ls $c -plL | grep -v /';;
+	'hidden')
+		case $2 in
+			'dirs')
+				list='ls $c -dlth .??*/';;
+			'files')
+				list='ls $c -dplL .??* | grep -v /';;
+			*)
+				list='ls $c -dl $gdf .??*';;
+		esac;;
+	*)
+		list='ls $c -hAlt $gdf';;
+esac
+
+eval $list
