@@ -3,22 +3,29 @@
 c='--color=always'
 gdf='--group-directories-first'
 
+{ [[ "$#" -gt 0 ]] && last_argument="${@:$#}"; } ||
+	last_argument=""
+
+{ [[ -d $last_argument ]] && loc="${last_argument}/" ;} ||
+	{ [[ -f $last_argument ]] && loc="${last_argument}" ;} ||
+	loc=""
+
 case $1 in
 	'dirs'|'d')
-		list='ls $c -dlth */';;
+		list="ls $c -dlth $loc*/";;
 	'files'|'f')
-		list='ls $c -plL | grep -v /';;
+		list="ls $c -plL $loc | grep -v '/$'";;
 	'hidden'|'h')
 		case $2 in
 			'dirs'|'d')
-				list='ls $c -dlth .??*/';;
+				list="ls $c -dlth $loc.??*/";;
 			'files'|'f')
-				list='ls $c -dplL .??* | grep -v /';;
+				list="ls $c -dplL $loc.??* | grep -v '/$'";;
 			*)
-				list='ls $c -dl $gdf .??*';;
+				list="ls $c -dl $gdf $loc.??*";;
 		esac;;
 	*)
-		list='ls $c -hAlt $gdf';;
+		list="ls $c -hAlt $gdf $loc";;
 esac
 
-eval $list
+eval "$list"
