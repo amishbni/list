@@ -28,4 +28,5 @@ case $1 in
 		list="ls $c -hAlt $gdf $loc";;
 esac
 
-eval "$list"
+eval "$list 2>/dev/null"
+exit 0
